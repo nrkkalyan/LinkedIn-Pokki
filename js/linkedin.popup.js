@@ -76,20 +76,20 @@ var LinkedInPopup = function(){
 				_suffix = ' minute' + ((_time_elapsed > 1) ? 's' : '') + ' ago';
 				
 				if(_time_elapsed > 60){
-					_time_elapsed = Math.ceil((_now - _timestamp) / 6000000);
+					_time_elapsed = Math.ceil((_now - _timestamp) / 3600000);
 					_suffix = ' hour' + ((_time_elapsed > 1) ? 's' : '') + ' ago';
-				} 
-				
-				if(_time_elapsed > 24){
-					var _day = 1000*60*60*24;
-					_time_elapsed = Math.ceil((_now - _timestamp) / _day);
-					_suffix = ' day' + ((_time_elapsed > 1) ? 's' : '') + ' ago';					
-					
-				}
 
+					if(_time_elapsed > 24){
+						var _day = 1000*60*60*24;
+						_time_elapsed = Math.ceil((_now - _timestamp) / _day);
+						_suffix = ' day' + ((_time_elapsed > 1) ? 's' : '') + ' ago';					
+					}
+
+				}
+				
 				return _time_elapsed + _suffix;
 			};
-			
+												
 			var _directive = {
 				'div.nu-item':{
 					'update<-values':{
