@@ -1,0 +1,67 @@
+/* If a pop-up has no content, then it's width and height must be specified */
+body {
+  width: 600px;
+  height: 425px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  overflow: hidden;
+}
+
+#content {
+	padding: 20px;	
+}
+
+#header {
+	width: 100%;
+	background: #EEE;
+	background: -webkit-gradient(linear,left top,left bottom,from(#FEFEFE),to(#ECECEC));
+	border-bottom: 1px solid #959595;
+	padding: 7px 0;
+}
+#header .logo {
+    background: url("../img/linkedin_sprite_global_v5.png") no-repeat scroll 0 0 transparent;
+	display: block;
+	width: 92px;
+	height: 22px;
+	text-indent: -12345px;
+	float: left;
+	margin-left: 20px;
+	_margin-left: 10px;
+}
+
+#templates { display: none; }
+
+#nu-items {
+	overflow: auto;
+	height: 345px;
+	width: 560px;	
+}
+.nu-item {
+	padding: 5px 0 5px 0;
+}
+.nu-person{
+	font-weight: bold;	
+}
+.nu-img {
+	float: left;
+	width: 60px;
+	height: 60px;
+	padding-right: 11px;	
+}
+.nu-message {
+	float: left;
+	width: 470px;
+	color: #333;
+}
+.nu-time-share {
+	color: #aaa;
+	font-size: 10px
+}
+
+.clearfix:after {
+	content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;	
+}

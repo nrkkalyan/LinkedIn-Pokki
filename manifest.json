@@ -1,0 +1,11 @@
+{
+   "name": "LinkedIn",
+   "version": "1.0",
+   "icon-19x19": "img/linkedin_19x19.png",
+   "icon-29x29": "img/linkedin_29x29.png",
+   "icon-42x42": "img/linkedin_42x42.png",
+   "description": "Over 100 million professionals use LinkedIn to exchange information, ideas and opportunities",
+   "popup": "popup.html",
+   "background_page": "background.html",
+   "default_popup_size" : "600, 425"
+}
