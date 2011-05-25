@@ -10,6 +10,8 @@ window.addEventListener('load', function(){
 	
 	if(_access_token){ // access token exists start bg processes		
 		LinkedInBackground.message('poll_network_updates');
+		var _get_user_params = {};
+		LinkedIn.request('get_user_profile', _get_user_params);
 	} else { // no access token; request one	
 		LinkedIn.request('request_token', _request_token_params);
 	}

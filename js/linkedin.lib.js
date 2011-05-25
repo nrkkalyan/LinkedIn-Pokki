@@ -150,11 +150,15 @@ var LinkedIn = function(){
 			network : {
 				updates : {
 					url : 'http://api.linkedin.com/v1/people/~/network/updates',
-					name : 'network_updates'
-					
+					name : 'network_updates'					
 				}
-			}
-		
+			},
+			profile : {
+				user : {
+					url : 'http://api.linkedin.com/v1/people/~',
+					name : 'user_profile'	
+				}							
+			}		
 		},
 		construct : function(url){			
 			var _url = url;
@@ -231,6 +235,16 @@ var LinkedIn = function(){
 			getLocalUpdates : function() {
 				return UTIL.local.json.get(_api.config.network.updates.name);
 			}	
+		},
+		profile : {
+			getUser : function(params){
+				var _url = _api.config.profile.user.url;
+				var _name = _api.config.profile.user.name;
+				var _call = _api.construct(_url);
+				
+				var _callback = (params && params.callback) ? params.callback : null;
+				_api.request(_url, _name, _callback);													
+			}
 		}						
 	};
 	
@@ -255,7 +269,10 @@ var LinkedIn = function(){
 					_api.network.getUpdates(params);
 					break;	
 				case 'get_local_network_updates': 
-					return _api.network.getLocalUpdates();												
+					return _api.network.getLocalUpdates();
+				case 'get_user_profile': 
+					_api.profile.getUser(params);
+					break;																		
 				default:
 					console.log('LINKEDIN REQUEST "' + type +  '" NOT DEFINED');
 					break;	
