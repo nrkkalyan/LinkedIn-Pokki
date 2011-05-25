@@ -114,7 +114,9 @@ var LinkedInPopup = function(){
 
 	    	pokki.showWebSheet(_auth_url, 600, 425, function(_url){    		
 	    		var _params = { url : _url};
-	    		var _auth_response =  LinkedInPopup.message('parse_oauth_auth_response', _params);    		    		
+	    		var _auth_response =  LinkedInPopup.message('parse_oauth_auth_response', _params); 
+	    		
+	    		console.log('web sheet called, ' + _auth_url);   		    		
 	    		
 	    		if(_auth_response){
 	    			console.log('AUTH RESPONSE SUCCESS');    			
@@ -148,15 +150,14 @@ var LinkedInPopup = function(){
 	    				};    				
 	    				
 	    				LinkedIn.request('request_access_token', _access_token_request_params);
-				    				
-	    				return true;
-	    			}
-	    			    			    		
+				    				   				
+	    				pokki.hideWebSheet();
+	    			}  			    		
 	    			
 	    			LinkedIn.request('request_access_token');
 	    		}
 	    		
-	    		return false;
+	    		return true;
 	    	});   			
 
 		}		
