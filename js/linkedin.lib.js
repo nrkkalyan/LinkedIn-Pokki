@@ -4,13 +4,7 @@
  * 
  */
 var LinkedIn = function(){	
-	var _getAPIKey = function(){
-		return '';		
-	};
-	
-	var _getSecretKey = function(){
-		return ''; // #TODO (d)encrypt		
-	};	
+
 
 	var _oAuth = {			
 		config : {
@@ -158,6 +152,12 @@ var LinkedIn = function(){
 					url : 'http://api.linkedin.com/v1/people/~',
 					name : 'user_profile'	
 				}							
+			},
+			search : {
+				people : {
+					url : 'http://api.linkedin.com/v1/people-search',
+					name : 'search_people'
+				}									
 			}		
 		},
 		construct : function(url){			
@@ -165,7 +165,7 @@ var LinkedIn = function(){
 			//format=json&
 			return _url;
 		},
-		request : function(api_url, api_type, callback){
+		request : function(api_url, api_type, callback, params){
 			console.log('request()->');
 			var _access_token = UTIL.local.json.get('oauth_access_token');
 			var _api_key = _getAPIKey();
@@ -184,6 +184,11 @@ var LinkedIn = function(){
 					format : 'json'
 				} 
 			};	
+			
+			if(params){ // api call params
+				for(key in params)
+					_message.parameters[key] = params[key]				
+			}
 			
 			OAuth.completeRequest(_message, _accessor);         
 			OAuth.SignatureMethod.sign(_message, _accessor);
@@ -245,6 +250,26 @@ var LinkedIn = function(){
 				var _callback = (params && params.callback) ? params.callback : null;
 				_api.request(_url, _name, _callback);													
 			}
+		},
+		search : {
+			people : function(params){			
+				/*
+				http://api.linkedin.com/v1/people-search?keywords=[space delimited keywords]&
+				first-name=[first name]& last-name=[last name]&company-name=[company name]&
+				current-company=[true|false]& title=[title]& current-title=[true|false]&
+				school-name=[school name]& current-school=[true|false]&
+				country-code=[country code]& postal-code=[postal code]&
+				distance=[miles]& start=[number]& count=[1-25]&
+				facet=[facet code, values]& facets=[facet codes]&
+				sort=[connections|recommenders|distance|relevance]
+				*/				
+				var _url = _api.config.search.people.url;
+				var _name = _api.config.search.people.name;						
+				var _callback = (params && params.callback) ? params.callback : null;
+				var _params = {keywords : params.query};
+				
+				_api.request(_url, _name, _callback, _params);											
+			}
 		}						
 	};
 	
@@ -272,7 +297,10 @@ var LinkedIn = function(){
 					return _api.network.getLocalUpdates();
 				case 'get_user_profile': 
 					_api.profile.getUser(params);
-					break;																		
+					break;	
+				case 'search_people': 
+					_api.search.people(params);
+					break;																							
 				default:
 					console.log('LINKEDIN REQUEST "' + type +  '" NOT DEFINED');
 					break;	

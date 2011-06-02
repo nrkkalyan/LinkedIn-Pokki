@@ -12,6 +12,15 @@ window.addEventListener('load', function(){
 		LinkedInBackground.message('poll_network_updates');
 		var _get_user_params = {};
 		LinkedIn.request('get_user_profile', _get_user_params);
+		
+		var _search_params = {
+			callback : function(response){
+				console.log(response);
+			},
+			query : 'Jason Strimpel'			
+		};
+		
+		LinkedIn.request('search_people', _search_params);
 	} else { // no access token; request one	
 		LinkedIn.request('request_token', _request_token_params);
 	}
